@@ -18,14 +18,10 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 
 ### Goals
 
-Goals
-
 - Mengembangkan model Machine Learning yang dapat memprediksi harga saham dengan akurasi yang tinggi, sehingga dapat membantu investor membuat keputusan investasi yang lebih baik dan mengurangi risiko kerugian finansial.
 - Memprediksi harga saham untuk 30 hari kedepan per tanggal 20 Februari 2024
 
 ### Solution statements
-
-Solution Statements
 
 - Membuat model Long Short Term Memory (LSTM) dengan menggunakan library tensorflow dan pytorch untuk memprediksi harga saham. LSTM adalah jenis Recurrent Neural Network yang dirancang untuk belajar dependensi jangka panjang, yang sangat berguna untuk memprediksi data deret waktu seperti harga saham.
 - Melakukan hyperparameter tuning pada model LSTM dengan menggunakan library kerastuner dan optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang akan kita gunakan adalah Mean Squared Error (MSE) dan Root Mean Squared Error (RMSE)
@@ -53,11 +49,52 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 ### Data Analysis
 
 - Ringkasan statistik deskriptif dari Dataset
+  
+  count : Jumlah data
+  
+  mean : nilai rata-rata
+  
+  min : nilai data minimum
+  
+  25% : kuartil pertama (Q1)
+  
+  50% : kuartil kedua (Median)
+  
+  75% : kuartil ketiga (Q3)
+  
+  max : nilai data maximum
+  
+  std : standar deviasi
+![Describe](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e76e20cf-786a-402c-831c-7b5fe2346a37)
+
+- Mengamati hubungan antar fitur numerik dengan fungsi pairplot()
+
+![cor plot](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e8cb1b43-b028-43c1-8c2f-2e700894d746)
+
+- Membuat heatmap korelasi antar fitur
+
+Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif
+
+![corr](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3e723bb3-3d78-4555-b18b-750a2eb3ef41)
+
+- Menganalisa fitur yang memiliki korelasi tinggi
+
+Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh berbeda
+
+![Price](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/2520873c-8310-49ac-a009-081af9c1f14b)
+
+- Menganalisa Moving Average dan Close Price
+  
+  Moving Average digunakan untuk memperhalus data harga penutupan saham selama 50 dan 200 hari terakhir. Dengan memvisualisasikan kedua moving average ini bersama harga penutupan sebenarnya, Anda dapat melihat tren jangka pendek dan jangka panjang dalam harga saham BCA.
+
+![Close](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e7784995-8ad6-495d-8d38-f2922f20ab2a)
+
+- Mengamati volume perdagangan dan Moving Average
+
+  ![Volume](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/ed18fc9f-f38f-4665-9092-87df187868f5)
 
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
 
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
 
 ## Data Preparation
 
