@@ -14,17 +14,16 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 
 - Prediksi harga saham adalah tugas yang sangat kompleks dan selalu ada risiko. Bagaimana kita dapat meminimalkan risiko ini?
 - Bagaimana kita dapat menggunakan data historis untuk memprediksi pergerakan harga saham di masa depan?
-  Menjelaskan pernyataan masalah latar belakang:
 
 ### Goals
 
 - Mengembangkan model Machine Learning yang dapat memprediksi harga saham dengan akurasi yang tinggi, sehingga dapat membantu investor membuat keputusan investasi yang lebih baik dan mengurangi risiko kerugian finansial.
-- Memprediksi harga saham untuk 30 hari kedepan dari tanggal 21 Februari 2024
+- Memprediksi harga saham untuk 30 hari kedepan dari tanggal 21 Februari 2024 s/d 21 Maret 2024.
 
 ### Solution statements
 
 - Membuat model Long Short Term Memory (LSTM) dengan menggunakan library tensorflow dan pytorch untuk memprediksi harga saham. LSTM adalah jenis Recurrent Neural Network yang dirancang untuk belajar dependensi jangka panjang, yang sangat berguna untuk memprediksi data deret waktu seperti harga saham.
-- Melakukan hyperparameter tuning pada model LSTM dengan menggunakan library kerasTuner dan optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang akan kita gunakan adalah Mean Squared Error (MSE) dan Root Mean Squared Error (RMSE)
+- Melakukan hyperparameter tuning pada model LSTM dengan menggunakan library kerasTuner dan optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang akan kita gunakan adalah Mean Squared Error (MSE) dan Root Mean Squared Error (RMSE).
 
 ## Data Understanding
 
@@ -44,27 +43,26 @@ Referensi : [Yahoo finance Saham BCA](https://finance.yahoo.com/quote/BBCA.JK/hi
   Sumber Data:
   Himpunan data disusun dari sumber keuangan yang andal, termasuk bursa saham, situs web berita keuangan, dan penyedia data keuangan terkemuka. Teknik pembersihan dan preprocessing data telah diterapkan untuk memastikan akurasi dan konsistensi.
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
-
 ### Eksplorasi Data Analysis (EDA)
 
 - Ringkasan statistik deskriptif dari Dataset
   
-  count : Jumlah data
+  - count : Jumlah data
   
-  mean : nilai rata-rata
+  - mean : nilai rata-rata
   
-  min : nilai data minimum
+  - min : nilai data minimum
   
-  25% : kuartil pertama (Q1)
+  - 25% : kuartil pertama (Q1)
   
-  50% : kuartil kedua (Median)
+  - 50% : kuartil kedua (Median)
   
-  75% : kuartil ketiga (Q3)
+  - 75% : kuartil ketiga (Q3)
   
-  max : nilai data maximum
+  - max : nilai data maximum
   
-  std : standar deviasi
+  - std : standar deviasi
+  
   ![Describe](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e76e20cf-786a-402c-831c-7b5fe2346a37)
 
 - Mengamati hubungan antar fitur numerik dengan fungsi pairplot()
@@ -75,7 +73,7 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 
 - Membuat heatmap korelasi antar fitur
 
-  Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif
+  Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif.
 
   ![corr](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3e723bb3-3d78-4555-b18b-750a2eb3ef41)
 
@@ -87,7 +85,7 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 
 - Menganalisa fitur yang memiliki korelasi tinggi
 
-  Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh berbeda
+  Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh berbeda.
 
   ![Price](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/2520873c-8310-49ac-a009-081af9c1f14b)
 
@@ -127,14 +125,14 @@ Pada lapisan LSTM pertama dan kedua saya melakukan hyperparameter tuning dengan 
 
 Setelah dua lapisan LSTM, model menggunakan beberapa lapisan Dense untuk melakukan pemrosesan fitur yang dihasilkan oleh lapisan LSTM sebelumnya. Dalam model yang ini, terdapat tiga lapisan Dense. Lapisan Dense pertama menggunakan parameter units yang diatur dengan fungsi hyperparameter dengan jumlah unit antara 16-128 yang memiliki 16 langkah (step). Lapisan Dense kedua menggunakan parameter units yang diatur dengan fungsi hyperparameter dengan jumlah unit antara 8-64 yang memiliki 8 langkah (step). lapisan Dense terakhir memiliki satu neuron, yang bertanggung jawab untuk menghasilkan output akhir dari model yaitu, prediksi yang diinginkan. 
 
-Setelah parameter yang ingin diatur ditetapkan, selanjutnya model dicompile dengan menggunakan optimer Adam dengan learning rate yang disetel juga dengan nilai 0.01, 0.001, dan 0.0001
+Setelah parameter yang ingin diatur ditetapkan, selanjutnya model dicompile dengan menggunakan optimer Adam dengan learning rate yang disetel juga dengan nilai 0.01, 0.001, dan 0.0001.
 
 Pada model ini juga menggunakan beberapa fungsi Callback yaitu :
 - EarlyStopping : berfungsi untuk menghentikan pelatihan lebih awal jika metrik yang dipantau tidak meningkat setelah sejumlah epoch tertentu (patience) dan mengembalikan bobot model ke iterasi terbaik selama pelatihan.
   
 - ModelCheckPoint : berfungsi untuk menyimpan model ke dalam file best_model.h5 hanya jika nilai metrik yang dipanta terbaik dari semua epoch yang telah dilalui dan memastikan bahwa hanya model dengan performa terbaik yang disimpan.
 
-- ReduceLROnPlateau : Mengurangi laju pembelajaran (learning rate) jika tidak ada peningkatan dalam metrik yang dipantau setelah sejumlah epoch tertentu (patience)
+- ReduceLROnPlateau : Mengurangi laju pembelajaran (learning rate) jika tidak ada peningkatan dalam metrik yang dipantau setelah sejumlah epoch tertentu (patience).
 
 - rmse_threshold_callback : bertujuan untuk menghentikan proses pelatihan model jika nilai RMSE (Root Mean Squared Error) pada data latih dan validasi sudah mencapai batas tertentu.
 
@@ -230,7 +228,7 @@ Pada model kedua menghasilkan nilai error sebagai berikut:
 ### Simulation
 Berdasarkan perbandingan mse diantara kedua model, model pertama lebih baik dalam menangani error. Oleh karena itu saya akan membuat simulasi prediksi harga saham BCA 30 hari kedepan menggunakan Model Pertama.
 
-Berikut adalah hasil prediksi harga saham BCA 30 hari kedepan mulai dari tanggal 21 Februari 2024 s/d 30 maret 2024
+Berikut adalah hasil prediksi harga saham BCA 30 hari kedepan mulai dari tanggal 21 Februari 2024 s/d 21 maret 2024.
 
 ![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/823ca839-4dce-46ea-a523-22301e42f634)
 
