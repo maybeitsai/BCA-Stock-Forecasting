@@ -17,7 +17,7 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 
 ### Goals
 
-- Mengembangkan model Machine Learning yang dapat memprediksi harga saham dengan akurasi yang tinggi, sehingga dapat membantu investor membuat keputusan investasi yang lebih baik dan mengurangi risiko kerugian finansial.
+- Mengembangkan model Machine Learning terbaik yang dapat memprediksi harga saham dengan error yang rendah.
 - Memprediksi harga saham untuk 30 hari kedepan dari tanggal 21 Februari 2024 s/d 21 Maret 2024.
 
 ### Solution statements
@@ -62,8 +62,17 @@ Referensi : [Yahoo finance Saham BCA](https://finance.yahoo.com/quote/BBCA.JK/hi
   - max : nilai data maximum
   
   - std : standar deviasi
-  
-  ![Describe](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e76e20cf-786a-402c-831c-7b5fe2346a37)
+
+    |       |     Open    |     High     |     Low     |    Close    |  Adj Close  |    Volume    |
+    |:-----:|:-----------:|:------------:|:-----------:|:-----------:|:-----------:|:------------:|
+    | count | 4881.000000 |  4881.000000 | 4881.000000 | 4881.000000 | 4881.000000 |  4881.000000 |
+    |  mean | 3143.235505 |  3172.630608 | 3112.729973 | 3143.271871 | 2886.695823 | 1.078381e+08 |
+    |  std  | 2706.217590 |  2727.272606 | 2685.272032 | 2706.073835 | 2662.345316 | 1.302515e+08 |
+    |  min  |  175.000000 |  177.500000  |  175.000000 |  177.500000 |  105.656075 | 0.000000e+00 |
+    |  25%  |  720.000000 |  725.000000  |  705.000000 |  720.000000 |  553.555847 | 4.898400e+07 |
+    |  50%  | 2200.000000 |  2220.000000 | 2180.000000 | 2200.000000 | 1902.267700 | 7.295500e+07 |
+    |  75%  | 5315.000000 |  5395.000000 | 5240.000000 | 5295.000000 | 4900.501465 | 1.170345e+08 |
+    |  max  | 9975.000000 | 10000.000000 | 9875.000000 | 9950.000000 | 9950.000000 | 1.949960e+09 |
 
 - Mengamati hubungan antar fitur numerik dengan fungsi pairplot()
 
@@ -136,13 +145,27 @@ Pada model ini juga menggunakan beberapa fungsi Callback yaitu :
 
 - rmse_threshold_callback : bertujuan untuk menghentikan proses pelatihan model jika nilai RMSE (Root Mean Squared Error) pada data latih dan validasi sudah mencapai batas tertentu.
 
-Setelah dilakukannya hyperparameter tuning, model dipilih dengan parameter yang terbaik. Adapun parameter terbaik pada model ini sebagai berikut.
+#### Hyperparameter Tuning dengan Random Search
+Random search adalah salah satu metode dalam hyperparameter tuning yang menggunakan pendekatan acak untuk mencari kombinasi hyperparameter yang optimal. Dalam random search, kita secara acak memilih nilai untuk setiap hyperparameter dari rentang yang telah ditentukan, lalu mengevaluasi kinerja model untuk setiap kombinasi tersebut.
+
+Berikut adalah penjelasan langkah-langkah hyperparameter tuning yang saya lakukan:
+
+- Membuat Tuner: Pertama-tama, saya membuat objek tuner menggunakan metode RandomSearch dari Kerastuner. RandomSearch akan secara acak mencari kombinasi hyperparameter. Parameter yang diberikan untuk objek tuner meliputi:
+  - build_model: Fungsi yang digunakan untuk membangun model.
+  - objective: Mengindikasikan apakah kita ingin meminimalkan atau memaksimalkan metrik yang ditentukan. Dalam kasus ini, kita ingin meminimalkan nilai kerugian (loss).
+  - max_trials: Jumlah maksimum percobaan pencarian hyperparameter yang akan dilakukan. Dalam contoh ini, kita akan mencoba hingga 50 kombinasi hyperparameter.
+  - executions_per_trial: Jumlah kali model akan dievaluasi untuk setiap konfigurasi hyperparameter. Dalam contoh ini, kita hanya akan mengevaluasi setiap model sekali.
+  - directory dan project_name: Direktori tempat tuner akan menyimpan hasil pencarian.
   
-![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/b1a5a77d-225b-4933-9b22-85ea9fc72bd0)
+- Melakukan Pencarian: Setelah tuner dibuat, saya menggunakan metode search untuk memulai proses pencarian hyperparameter. Parameter yang diberikan meliputi:
+  - X_train dan y_train: Data latih dan label.
+  - epochs: Jumlah epochs yang akan digunakan untuk melatih setiap model yang diuji.
+  - batch_size: Ukuran batch yang digunakan selama pelatihan.
+  - validation_data: Data validasi yang digunakan untuk mengevaluasi kinerja model. 
 
 ### LSTM dengan library Pytorch dan Optuna
 
-Terdapat beberapa proses yang saya lakukan sebagai berikut.
+Terdapat beberapa proses dalam membuat model yang saya lakukan sebagai berikut.
 
 -  Pembangunan Model LSTM: Saya mendefinisikan kelas LSTMModel yang merupakan implementasi dari jaringan LSTM dalam PyTorch. Model ini memiliki beberapa parameter, termasuk ukuran input, ukuran tersembunyi, jumlah lapisan, dan ukuran output.
 
@@ -152,9 +175,9 @@ Terdapat beberapa proses yang saya lakukan sebagai berikut.
 
 - Pelatihan Model: Proses pelatihan dilakukan dengan menggunakan fungsi train_model, di mana model dievaluasi pada setiap epoch untuk mengamati kinerjanya pada data pelatihan dan validasi.
 
-- Optimasi Hyperparameter: Saya menggunakan Optuna untuk mengoptimalkan hyperparameter model, seperti ukuran tersembunyi (hidden size), jumlah lapisan (num_layers), dan tingkat pembelajaran (learning rate). Saya melakukan percobaan sebanyak 50 kali untuk menentukan parameter yang terbaik. Adapun parameter terbaik yang didapatkan adalah sebagai berikut.
+#### Hyperparameter Tuning
+Saya menggunakan Optuna untuk mengoptimalkan hyperparameter model, seperti ukuran tersembunyi (hidden size), jumlah lapisan (num_layers), dan tingkat pembelajaran (learning rate). Optuna adalah pustaka yang memanfaatkan algoritma pencarian berbasis pohon dan teknik pruning untuk mencari hyperparameter yang optimal. 
 
-![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3b781626-8cfb-402a-a42a-fb11222f12cc)
 
 ### Model Selection
 
@@ -193,22 +216,21 @@ Terdapat beberapa proses yang saya lakukan sebagai berikut.
 - Mean Squared Error (MSE):
 Mean Squared Error adalah metrik yang digunakan untuk mengukur seberapa dekat rata-rata kuadrat dari selisih antara nilai yang diprediksi dan nilai yang sebenarnya dari data sampel. Metrik ini digunakan pada model pertama dan kedua. Formula untuk MSE adalah sebagai berikut:
 
-![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e06ee0ce-b054-4523-a5d2-8d856e305fd5)
+  MSE = $\frac{1}{n} \Sigma_{i=1}^n({y}-\hat{y})^2$
 
-Keterangan :
+  Keterangan :
 
-n adalah jumlah sampel
+    n adalah jumlah sampel
 
-Yi adalah nilai sebenarnya dari sampel ke-i
+    Y adalah nilai sebenarnya dari sampel ke-i
 
-Ŷi adalah nilai yang diprediksi untuk sampel ke-i
-    
-
+    Ŷ adalah nilai yang diprediksi untuk sampel ke-i
 
 - Root Mean Squared Error (RMSE):
 Root Mean Squared Error adalah akar kuadrat dari MSE. Ini memberikan ukuran kesalahan rata-rata antara nilai yang diprediksi dan nilai yang sebenarnya dalam satuan yang sama dengan variabel target. Metrik ini digunakan pada model pertama saja. RMSE dihitung dengan cara berikut:
 
-![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/d3c822b3-4309-4cb4-b2a8-2de00853abe8)
+  RMSE = $\sqrt{MSE}$
+
 
 ### Model Evaluation
 - Model Pertama
@@ -225,10 +247,13 @@ Pada model kedua menghasilkan nilai error sebagai berikut:
     - val_mse: 0.002514
 
 
-### Simulation
+### Simulasi
 Berdasarkan perbandingan mse diantara kedua model, model pertama lebih baik dalam menangani error. Oleh karena itu saya akan membuat simulasi prediksi harga saham BCA 30 hari kedepan menggunakan Model Pertama.
 
 Berikut adalah hasil prediksi harga saham BCA 30 hari kedepan mulai dari tanggal 21 Februari 2024 s/d 21 maret 2024.
 
 ![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/823ca839-4dce-46ea-a523-22301e42f634)
+
+### Kesimpulan
+
 
