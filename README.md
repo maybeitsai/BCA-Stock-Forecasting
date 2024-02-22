@@ -24,7 +24,7 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 ### Solution statements
 
 - Membuat model Long Short Term Memory (LSTM) dengan menggunakan library tensorflow dan pytorch untuk memprediksi harga saham. LSTM adalah jenis Recurrent Neural Network yang dirancang untuk belajar dependensi jangka panjang, yang sangat berguna untuk memprediksi data deret waktu seperti harga saham.
-- Melakukan hyperparameter tuning pada model LSTM dengan menggunakan library kerastuner dan optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang akan kita gunakan adalah Mean Squared Error (MSE) dan Root Mean Squared Error (RMSE)
+- Melakukan hyperparameter tuning pada model LSTM dengan menggunakan library kerasTuner dan optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang akan kita gunakan adalah Mean Squared Error (MSE) dan Root Mean Squared Error (RMSE)
 
 ## Data Understanding
 
@@ -117,9 +117,9 @@ Pada tahap ini saya membuat fungi prepare_data yang berguna untuk memisahkan var
 
 ## Modeling
 
-Pada tahap ini, saya memilih menggunakan model LSTM (Long Short-Term Memory). Penggunaan model LSTM dalam tahap pemodelan dipilih karena keunggulan-keunggulan tertentu yang dimilikinya, terutama dalam penanganan data deret waktu seperti data keuangan, cuaca, atau bahkan teks. Saya membuat dua model LSTM dengan menggunakan dua library yang berbeda yaitu Tensorflow dan Pytorch. Serta menggunakan library Kerastuner dan Optuna untuk melakukan penyetelan parameternya.
+Pada tahap ini, saya memilih menggunakan model LSTM (Long Short-Term Memory). Penggunaan model LSTM dalam tahap pemodelan dipilih karena keunggulan-keunggulan tertentu yang dimilikinya, terutama dalam penanganan data deret waktu seperti data keuangan, cuaca, atau bahkan teks. Saya membuat dua model LSTM dengan menggunakan dua library yang berbeda yaitu Tensorflow dan Pytorch. Serta menggunakan library KerasTuner dan Optuna untuk melakukan penyetelan parameternya.
 
-### LSTM dengan library Tensorflow dan Kerastuner
+### LSTM dengan library Tensorflow dan KerasTuner
 
 Model ini merupakan jenis sekuensial yang sering digunakan pada jaringan saraf tiruan (neural networks). Terdapat dua lapisan LSTM yang diikuti oleh beberapa lapisan Dense. Setiap lapisan memiliki berbagai parameter yang dapat disesuaikan untuk penyesuaian model, seperti jumlah unit (units), fungsi aktivasi, dll. 
 
@@ -148,13 +148,52 @@ Setelah dilakukannya hyperparameter tuning, model dipilih dengan parameter yang 
 
 ### LSTM dengan library Pytorch dan Optuna
 
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+Terdapat beberapa proses yang saya lakukan sebagai berikut.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+-  Pembangunan Model LSTM: Saya mendefinisikan kelas LSTMModel yang merupakan implementasi dari jaringan LSTM dalam PyTorch. Model ini memiliki beberapa parameter, termasuk ukuran input, ukuran tersembunyi, jumlah lapisan, dan ukuran output.
 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+- Membuat Fungsi Evaluasi Model: Saya menulis fungsi evaluate_model untuk mengevaluasi kinerja model selama fase validasi.
+
+- Membuat Callback: Untuk mencegah overfitting, saya menggunakan mekanisme early stopping dengan definisi kelas EarlyStopping.
+
+- Pelatihan Model: Proses pelatihan dilakukan dengan menggunakan fungsi train_model, di mana model dievaluasi pada setiap epoch untuk mengamati kinerjanya pada data pelatihan dan validasi.
+
+- Optimasi Hyperparameter: Saya menggunakan Optuna untuk mengoptimalkan hyperparameter model, seperti ukuran tersembunyi (hidden size), jumlah lapisan (num_layers), dan tingkat pembelajaran (learning rate). Saya melakukan percobaan sebanyak 50 kali untuk menentukan parameter yang terbaik. Adapun parameter terbaik yang didapatkan adalah sebagai berikut.
+
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3b781626-8cfb-402a-a42a-fb11222f12cc)
+
+### Model Selection
+
+#### Model Pertama: Menggunakan TensorFlow dan KerasTuner
+
+##### Kelebihan:
+
+- Kemudahan Penggunaan: TensorFlow dan KerasTuner menyediakan antarmuka yang mudah digunakan dan dokumentasi yang lengkap, membuatnya cocok untuk pengguna dari berbagai tingkat keahlian.
+- KerasTuner: KerasTuner menyediakan alat yang kuat untuk menyetel hyperparameter secara otomatis, yang dapat menghemat waktu dan upaya dalam proses penyetelan model.
+- Integrasi yang Kuat: TensorFlow memiliki integrasi yang kuat dengan banyak alat dan platform lain dalam ekosistem machine learning, sehingga memudahkan untuk melakukan visualisasi, deployment, dan penggunaan model.
+- Performa: TensorFlow telah dikenal memiliki kinerja yang baik, terutama dalam konteks pelatihan model pada data dalam skala besar.
+
+##### Kekurangan:
+
+- Keterbatasan Fleksibilitas: Keras, sebagai high-level API dalam TensorFlow, memiliki keterbatasan dalam hal fleksibilitas dan kustomisasi jika memerlukan operasi yang sangat khusus atau tidak didukung secara langsung oleh Keras.
+- Kurangnya Kontrol Detail: Meskipun TensorFlow memberikan tingkat abstraksi yang tinggi, ini juga berarti Anda mungkin kehilangan beberapa kontrol detail dibandingkan dengan pendekatan yang lebih rendah seperti PyTorch.
+
+#### Model Kedua: Menggunakan PyTorch dan Optuna
+
+##### Kelebihan:
+
+- Fleksibilitas dan Kontrol: PyTorch memungkinkan Anda untuk memiliki tingkat fleksibilitas dan kontrol yang lebih tinggi dalam merancang dan menyesuaikan arsitektur model. Ini membuatnya cocok untuk penelitian yang lebih eksploratif dan pengembangan model yang canggih.
+- Dynamic Computational Graph: PyTorch menggunakan graph komputasi dinamis yang memungkinkan Anda untuk dengan mudah menyesuaikan arsitektur model dan melakukan debugging.
+- Optuna: Optuna menyediakan alat yang kuat untuk penyetelan hyperparameter dengan berbagai algoritma pencarian, memberikan fleksibilitas dalam menyesuaikan strategi penyetelan sesuai dengan kebutuhan proyek.
+
+##### Kekurangan:
+
+- Kurva Pembelajaran: PyTorch mungkin memiliki kurva pembelajaran yang lebih tinggi bagi pengguna yang tidak terbiasa dengan paradigma graph komputasi dinamis atau yang datang dari latar belakang penggunaan TensorFlow.
+- Kekurangan Dokumentasi: Meskipun PyTorch telah meningkatkan dokumentasinya dalam beberapa tahun terakhir, beberapa pengguna masih menganggap dokumentasi TensorFlow lebih lengkap dan mudah diakses.
+- Kurangnya Integrasi: Meskipun PyTorch mulai memiliki integrasi dengan beberapa alat dan platform lain, integrasinya belum sekuat TensorFlow dalam beberapa aspek seperti deployment dan penggunaan skala besar.
+
+#### Kesimpulan
+Saya memilih menggunakan model pertama yang menggunakan Tensorflow dan KerasTuner karena lebih user friendly daripada model yang menggunakan Pytorch. Hal ini bisa membuat proses pengembangan, pemahaman, dan debugging menjadi lebih mudah.
 
 ## Evaluation
 
