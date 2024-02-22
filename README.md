@@ -19,7 +19,7 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 ### Goals
 
 - Mengembangkan model Machine Learning yang dapat memprediksi harga saham dengan akurasi yang tinggi, sehingga dapat membantu investor membuat keputusan investasi yang lebih baik dan mengurangi risiko kerugian finansial.
-- Memprediksi harga saham untuk 30 hari kedepan per tanggal 20 Februari 2024
+- Memprediksi harga saham untuk 30 hari kedepan dari tanggal 21 Februari 2024
 
 ### Solution statements
 
@@ -46,7 +46,7 @@ Referensi : [Yahoo finance Saham BCA](https://finance.yahoo.com/quote/BBCA.JK/hi
 
 Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 
-### Data Analysis
+### Eksplorasi Data Analysis (EDA)
 
 - Ringkasan statistik deskriptif dari Dataset
   
@@ -69,6 +69,8 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 
 - Mengamati hubungan antar fitur numerik dengan fungsi pairplot()
 
+  Bentuk distribusi ini dapat memberikan informassi tentang hubungan setiap variabel. Pola dalam plot ini dapat menunjukkan korelasi antara variabel.
+
 ![cor plot](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e8cb1b43-b028-43c1-8c2f-2e700894d746)
 
 - Membuat heatmap korelasi antar fitur
@@ -76,6 +78,12 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif
 
 ![corr](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3e723bb3-3d78-4555-b18b-750a2eb3ef41)
+
+- Mengamati volume perdagangan dan Moving Average
+
+  Menghitung moving average (MA) dari volume perdagangan saham dengan menggunakan jendela (window) 20 hari terakhir. MA volume perdagangan membantu dalam memahami tren atau pola pergerakan volume perdagangan saham selama periode waktu tertentu.
+
+  ![Volume](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/ed18fc9f-f38f-4665-9092-87df187868f5)
 
 - Menganalisa fitur yang memiliki korelasi tinggi
 
@@ -85,27 +93,60 @@ Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh b
 
 - Menganalisa Moving Average dan Close Price
   
-  Moving Average digunakan untuk memperhalus data harga penutupan saham selama 50 dan 200 hari terakhir. Dengan memvisualisasikan kedua moving average ini bersama harga penutupan sebenarnya, Anda dapat melihat tren jangka pendek dan jangka panjang dalam harga saham BCA.
+  Moving Average digunakan untuk memperhalus data harga penutupan saham selama 50 dan 200 hari terakhir. Dengan memvisualisasikan kedua moving average ini bersama harga penutupan sebenarnya, Kita dapat melihat tren jangka pendek dan jangka panjang dalam harga saham BCA.
 
 ![Close](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e7784995-8ad6-495d-8d38-f2922f20ab2a)
 
-- Mengamati volume perdagangan dan Moving Average
-
-  ![Volume](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/ed18fc9f-f38f-4665-9092-87df187868f5)
-
-
-
-
 ## Data Preparation
 
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+### Seleksi fitur
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+Mengambil dua kolom, yaitu kolom "Date" dan "Close", dari DataFrame yang disebut df_analysis. Kolom "Close" ini akan digunakan sebagai kolom target dan diubah menjadi bentuk array satu dimensi menggunakan metode .values.reshape(-1, 1). Hal ini dilakukan untuk memastikan data siap digunakan dalam proses selanjutnya.
 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+### Pembagian dataset 
+
+Membagi dataset menjadi dua bagian yaitu data training dan data testing dengan menggunakan fungsi train_test_split dari library sklearn. Data training digunakan untuk melatih model, sedangkan data testing digunakan untuk menguji kinerja model pada data yang belum pernah dilihat sebelumnya. Dalam contoh ini, data dipisahkan menggunakan metode train_test_split dengan ukuran data testing sebesar 20% dari total data (test_size=0.2). Penyebutan shuffle=False menunjukkan bahwa data tidak diacak sebelum dipisahkan, yang berarti urutannya dipertahankan. Hal ini penting terutama jika data yang Anda miliki memiliki sifat kronologis atau urutan tertentu yang harus dipertahankan dalam pembagian data training dan testing. Adapun jumlah data training sebanyak 3904 dan jumlah data testing sebanyak 977.
+
+### Normalisasi
+
+Normalisasi data merupakan proses untuk mengubah rentang nilai dari setiap fitur dalam dataset menjadi rentang yang seragam. Dalam proses ini, saya menggunakan MinMaxScaler dari library scikit-learn untuk melakukan normalisasi. MinMaxScaler akan mengubah nilai-nilai data sehingga berada dalam rentang antara 0 dan 1.
+
+### Mengubah dimensi dan menentukan variabel x dan y
+
+Pada tahap ini saya membuat fungi prepare_data yang berguna untuk memisahkan variabel x. Setiap 100 data digunakan untuk memprediksi data berikutnya yang merupakan variabel y. Lalu pada fungsi prepare_data saya juga mengubah fitur (X) dan target (y) menjadi array numpy untuk kemudian digunakan dalam model. Data fitur diubah menjadi format tiga dimensi yang diperlukan oleh model LSTM.
 
 ## Modeling
+
+Pada tahap ini, saya memilih menggunakan model LSTM (Long Short-Term Memory). Penggunaan model LSTM dalam tahap pemodelan dipilih karena keunggulan-keunggulan tertentu yang dimilikinya, terutama dalam penanganan data deret waktu seperti data keuangan, cuaca, atau bahkan teks. Saya membuat dua model LSTM dengan menggunakan dua library yang berbeda yaitu Tensorflow dan Pytorch. Serta menggunakan library Kerastuner dan Optuna untuk melakukan penyetelan parameternya.
+
+### LSTM dengan library Tensorflow dan Kerastuner
+
+Model ini merupakan jenis sekuensial yang sering digunakan pada jaringan saraf tiruan (neural networks). Terdapat dua lapisan LSTM yang diikuti oleh beberapa lapisan Dense. Setiap lapisan memiliki berbagai parameter yang dapat disesuaikan untuk penyesuaian model, seperti jumlah unit (units), fungsi aktivasi, dll. 
+
+Pada lapisan LSTM pertama dan kedua saya melakukan hyperparameter tuning dengan jumlah unit antara 16-256 yang memiliki 16 langkah (step). Pada lapisan LSTM pertama merupakan lapisan yang menerima inputan. Pada Lapisan ini terdapat return_sequences=True yang berguna untuk mengembalikan urutan output yang lengkap dari setiap time step. Hal ini berguna ketika layer LSTM tersebut diikuti oleh layer LSTM atau layer lain yang memerlukan urutan output dari setiap time step.
+
+Setelah dua lapisan LSTM, model menggunakan beberapa lapisan Dense untuk melakukan pemrosesan fitur yang dihasilkan oleh lapisan LSTM sebelumnya. Dalam model yang ini, terdapat tiga lapisan Dense. Lapisan Dense pertama menggunakan parameter units yang diatur dengan fungsi hyperparameter dengan jumlah unit antara 16-128 yang memiliki 16 langkah (step). Lapisan Dense kedua menggunakan parameter units yang diatur dengan fungsi hyperparameter dengan jumlah unit antara 8-64 yang memiliki 8 langkah (step). lapisan Dense terakhir memiliki satu neuron, yang bertanggung jawab untuk menghasilkan output akhir dari model yaitu, prediksi yang diinginkan. 
+
+Setelah parameter yang ingin diatur ditetapkan, selanjutnya model dicompile dengan menggunakan optimer Adam dengan learning rate yang disetel juga dengan nilai 0.01, 0.001, dan 0.0001
+
+Pada model ini juga menggunakan beberapa fungsi Callback yaitu :
+- EarlyStopping : berfungsi untuk menghentikan pelatihan lebih awal jika metrik yang dipantau tidak meningkat setelah sejumlah epoch tertentu (patience) dan mengembalikan bobot model ke iterasi terbaik selama pelatihan.
+  
+- ModelCheckPoint : berfungsi untuk menyimpan model ke dalam file best_model.h5 hanya jika nilai metrik yang dipanta terbaik dari semua epoch yang telah dilalui dan memastikan bahwa hanya model dengan performa terbaik yang disimpan.
+
+- ReduceLROnPlateau : Mengurangi laju pembelajaran (learning rate) jika tidak ada peningkatan dalam metrik yang dipantau setelah sejumlah epoch tertentu (patience)
+
+- rmse_threshold_callback : bertujuan untuk menghentikan proses pelatihan model jika nilai RMSE (Root Mean Squared Error) pada data latih dan validasi sudah mencapai batas tertentu.
+
+#### Best Model
+
+Setelah dilakukannya hyperparameter tuning, model dipilih dengan parameter yang terbaik. Adapun parameter terbaik pada model ini sebagai berikut.
+  
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/b1a5a77d-225b-4933-9b22-85ea9fc72bd0)
+
+
+
+### LSTM dengan library Pytorch dan Optuna
 
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
