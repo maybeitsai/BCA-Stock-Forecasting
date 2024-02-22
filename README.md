@@ -65,7 +65,7 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
   max : nilai data maximum
   
   std : standar deviasi
-![Describe](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e76e20cf-786a-402c-831c-7b5fe2346a37)
+  ![Describe](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e76e20cf-786a-402c-831c-7b5fe2346a37)
 
 - Mengamati hubungan antar fitur numerik dengan fungsi pairplot()
 
@@ -75,9 +75,9 @@ Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:
 
 - Membuat heatmap korelasi antar fitur
 
-Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif
+  Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangkan volume memiliki korelasi negatif
 
-![corr](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3e723bb3-3d78-4555-b18b-750a2eb3ef41)
+  ![corr](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/3e723bb3-3d78-4555-b18b-750a2eb3ef41)
 
 - Mengamati volume perdagangan dan Moving Average
 
@@ -87,15 +87,15 @@ Berdasarkan diagram heatmap, banyak fitur yang memiliki korelasi tinggi, sedangk
 
 - Menganalisa fitur yang memiliki korelasi tinggi
 
-Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh berbeda
+  Setelah dianalisa ternyata fitur-fitur tersebut memiliki nilai yang tidak jauh berbeda
 
-![Price](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/2520873c-8310-49ac-a009-081af9c1f14b)
+  ![Price](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/2520873c-8310-49ac-a009-081af9c1f14b)
 
 - Menganalisa Moving Average dan Close Price
   
   Moving Average digunakan untuk memperhalus data harga penutupan saham selama 50 dan 200 hari terakhir. Dengan memvisualisasikan kedua moving average ini bersama harga penutupan sebenarnya, Kita dapat melihat tren jangka pendek dan jangka panjang dalam harga saham BCA.
 
-![Close](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e7784995-8ad6-495d-8d38-f2922f20ab2a)
+  ![Close](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e7784995-8ad6-495d-8d38-f2922f20ab2a)
 
 ## Data Preparation
 
@@ -138,13 +138,9 @@ Pada model ini juga menggunakan beberapa fungsi Callback yaitu :
 
 - rmse_threshold_callback : bertujuan untuk menghentikan proses pelatihan model jika nilai RMSE (Root Mean Squared Error) pada data latih dan validasi sudah mencapai batas tertentu.
 
-#### Best Model
-
 Setelah dilakukannya hyperparameter tuning, model dipilih dengan parameter yang terbaik. Adapun parameter terbaik pada model ini sebagai berikut.
   
 ![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/b1a5a77d-225b-4933-9b22-85ea9fc72bd0)
-
-
 
 ### LSTM dengan library Pytorch dan Optuna
 
@@ -192,22 +188,49 @@ Terdapat beberapa proses yang saya lakukan sebagai berikut.
 - Kekurangan Dokumentasi: Meskipun PyTorch telah meningkatkan dokumentasinya dalam beberapa tahun terakhir, beberapa pengguna masih menganggap dokumentasi TensorFlow lebih lengkap dan mudah diakses.
 - Kurangnya Integrasi: Meskipun PyTorch mulai memiliki integrasi dengan beberapa alat dan platform lain, integrasinya belum sekuat TensorFlow dalam beberapa aspek seperti deployment dan penggunaan skala besar.
 
-#### Kesimpulan
-Saya memilih menggunakan model pertama yang menggunakan Tensorflow dan KerasTuner karena lebih user friendly daripada model yang menggunakan Pytorch. Hal ini bisa membuat proses pengembangan, pemahaman, dan debugging menjadi lebih mudah.
-
 ## Evaluation
 
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+### Metrik
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
+- Mean Squared Error (MSE):
+Mean Squared Error adalah metrik yang digunakan untuk mengukur seberapa dekat rata-rata kuadrat dari selisih antara nilai yang diprediksi dan nilai yang sebenarnya dari data sampel. Metrik ini digunakan pada model pertama dan kedua. Formula untuk MSE adalah sebagai berikut:
 
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e06ee0ce-b054-4523-a5d2-8d856e305fd5)
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Keterangan :
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+n adalah jumlah sampel
 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+Yi adalah nilai sebenarnya dari sampel ke-i
 
-**---Ini adalah bagian akhir laporan---**
+Ŷi adalah nilai yang diprediksi untuk sampel ke-i
+    
+
+
+- Root Mean Squared Error (RMSE):
+Root Mean Squared Error adalah akar kuadrat dari MSE. Ini memberikan ukuran kesalahan rata-rata antara nilai yang diprediksi dan nilai yang sebenarnya dalam satuan yang sama dengan variabel target. Metrik ini digunakan pada model pertama saja. RMSE dihitung dengan cara berikut:
+
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/d3c822b3-4309-4cb4-b2a8-2de00853abe8)
+
+### Model Evaluation
+- Model Pertama
+Pada model pertama menghasilkan nilai error sebagai berikut:
+    - loss(mse): 2.6599e-05 atau 0.000026599
+    - val_loss(mse): 3.4602e-04 atau 0.00034602
+    - root_mean_squared_error: 0.0052
+    - val_root_mean_squared_error: 0.0186
+
+ 
+- Model Kedua
+Pada model kedua menghasilkan nilai error sebagai berikut:
+    - mse: 0.000041
+    - val_mse: 0.002514
+
+
+### Simulation
+Berdasarkan perbandingan mse diantara kedua model, model pertama lebih baik dalam menangani error. Oleh karena itu saya akan membuat simulasi prediksi harga saham BCA 30 hari kedepan menggunakan Model Pertama.
+
+Berikut adalah hasil prediksi harga saham BCA 30 hari kedepan mulai dari tanggal 21 Februari 2024 s/d 30 maret 2024
+
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/823ca839-4dce-46ea-a523-22301e42f634)
+
