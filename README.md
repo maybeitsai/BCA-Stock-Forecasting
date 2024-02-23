@@ -22,8 +22,26 @@ Dengan memanfaatkan data historis, prediksi yang akurat mengenai pergerakan harg
 
 ### Solution statements
 
-- Model _Long Short-Term Memory (_LSTM_)_ dibuat dengan menggunakan library TensorFlow dan PyTorch untuk melakukan prediksi harga saham. _LSTM_ merupakan jenis _Recurrent Neural Network_ yang dirancang untuk mempelajari dependensi jangka panjang, yang sangat berguna untuk prediksi data deret waktu seperti harga saham.
-- Pengoptimalan hiperparameter pada model _LSTM_ dilakukan dengan menggunakan library KerasTuner dan Optuna untuk meningkatkan akurasi prediksi. Metrik evaluasi yang digunakan adalah _Mean Squared Error (MSE)_ dan _Root Mean Squared Error (RMSE)_.
+- Penggunaan Model Long Short-Term Memory (LSTM) dalam Prediksi Harga Saham
+  
+  Dalam menghadapi kompleksitas dan dinamika pergerakan harga saham, pendekatan yang diadopsi menggunakan model _Long Short-Term Memory (LSTM)_. _LSTM_, sebagai jenis _Recurrent Neural Network (RNN)_, terkenal karena kemampuannya dalam mempelajari dependensi jangka panjang dalam data deret waktu seperti harga saham.
+
+  Implementasi model _LSTM_ dilakukan dengan menggunakan dua library utama, yaitu TensorFlow dan PyTorch, untuk memungkinkan perbandingan kinerja dan fleksibilitas masing-masing, serta memastikan solusi yang optimal untuk kebutuhan yang ada.
+
+- Pengoptimalan Hiperparameter untuk Peningkatan Akurasi Prediksi
+  
+  Dalam rangka meningkatkan kinerja prediksi, dilakukan pengoptimalan hiperparameter pada model _LSTM_. Penggunaan dua library pengoptimalan terkenal, yaitu KerasTuner dan Optuna, dilakukan untuk menemukan kombinasi hiperparameter yang menghasilkan hasil terbaik.
+
+  Metrik evaluasi yang digunakan adalah _Mean Squared Error (MSE)_ dan _Root Mean Squared Error (RMSE)_, yang memberikan gambaran tentang seberapa baik model dalam memprediksi harga saham. Dengan memaksimalkan akurasi prediksi dan meminimalkan kesalahan, bertujuan untuk menghasilkan model yang dapat diandalkan dan berguna bagi pengambilan keputusan bisnis.
+
+### Dampak terhadap Keputusan Bisnis
+Prediksi harga saham memiliki dampak langsung yang signifikan terhadap keputusan bisnis yang diambil. Dengan pemahaman yang mendalam tentang bagaimana harga saham diperkirakan akan bergerak, perusahaan dapat mengambil langkah-langkah proaktif untuk mengelola risiko, mengoptimalkan investasi, dan membuat keputusan finansial yang lebih cerdas. Misalnya:
+
+- Manajemen Risiko: Dengan prediksi harga saham yang akurat, perusahaan dapat mengidentifikasi risiko pasar dan mengambil langkah-langkah untuk mengurangi dampaknya, seperti melakukan lindung nilai (hedging) atau menyesuaikan portofolio investasi.
+
+- Perencanaan Keuangan: Prediksi harga saham yang dapat diandalkan memungkinkan perusahaan untuk merencanakan strategi keuangan jangka panjang dengan lebih baik, termasuk alokasi modal, proyeksi pendapatan, dan evaluasi kinerja keuangan.
+
+- Pengambilan Keputusan Investasi: Investor dan manajer portofolio dapat menggunakan prediksi harga saham untuk menentukan waktu yang tepat untuk membeli, menjual, atau mempertahankan saham tertentu dalam portofolio mereka.
 
 ## Data Understanding
 
@@ -278,12 +296,16 @@ Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil 
 
 ## References
 
-[1] Brownlee, J. (2019). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
+[1] Brownlee, J. (2020). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
 
-[2] TensorFlow Documentation. (2022). TensorFlow. https://www.tensorflow.org/api_docs
+[2] Riyantoko, PA., Fahruddin, TM., Maulida, K. & Safitri, HE. 2020. Analisis Prediksi Harga Saham Sektor Perbankan Menggunakan Algoritma Long Short Term Memory, SEMNASIF.
 
-[3] PyTorch Documentation. (2022). PyTorch. https://pytorch.org/docs/stable/index.html
+[3] S. F. Maghfiroh, D. D. P. Dewi, and M. N. Puspitasari, "Comparison of Time Series Analysis Method for Stock Price Prediction (Case Study: PT. Astra International Tbk)," J. SEMNASIF, vol. 3, no. 1, pp. 63–70, 2020.
 
-[4] Optuna Documentation. (2022). Optuna. https://optuna.org/
+[4] H. N. Bhandari, B. Rimal, N. R. Pokhrel, R. Rimal, K. R. Dahal, and R. K. C. Khatri, “Predicting stock market index using LSTM,” Machine Learning with Applications, vol. 9, p. 100320, Sep. 2022, doi: 10.1016/J.MLWA.2022.100320.
 
-[5] KerasTuner Documentation. (2022). KerasTuner. https://keras.io/api/keras_tuner/
+[5] Surya, R., & Yusuf, I. (2018). Prediksi Harga Saham Menggunakan Metode Long Short-Term Memory (LSTM) Neural Network. Jurnal Ilmiah Teknologi Informasi, 4(2), 123-130.
+
+[6] T. Gao, Y. Chai, and Y. Liu, “Applying long short term momory neural networks for predicting stock closing price,” Proceedings of the IEEE International Conference on Software Engineering and Service Sciences, ICSESS, vol. 2017-November, pp. 575–578, Apr. 2018, doi: 10.1109/ICSESS.2017.8342981.
+
+[7] Wiranda, L. & Sadikin, M. (2019). Penerapan Long Short Term Memory Pada Data Time Series Untuk Memprediksi Penjualan Produk PT. Metiska Farma, Janapato Vol. 8, No. 3.
