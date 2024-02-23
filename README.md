@@ -58,9 +58,6 @@ Informasi lebih lanjut terdapat pada [Yahoo finance Saham BCA](https://finance.y
 - _Low_ : Harga terendah yang dicapai oleh saham bank selama hari perdagangan.
 - _Adj Close_ : Harga penutupan pada hari perdagangan tertentu, disesuaikan untuk mencerminkan tindakan korporasi, seperti pemecahan saham, dividen, penawaran hak, atau penyesuaian lain yang dapat mempengaruhi harga saham.
 - _Volume_ : Jumlah saham yang diperdagangkan pada tanggal tertentu.
-  
-  Sumber Data:
-  Himpunan data disusun dari sumber keuangan yang andal, termasuk bursa saham, situs web berita keuangan, dan penyedia data keuangan terkemuka. Teknik pembersihan dan _preprocessing_ data telah diterapkan untuk memastikan akurasi dan konsistensi.
 
 ### Eksplorasi Data Analysis (EDA)
 
@@ -130,6 +127,40 @@ Informasi lebih lanjut terdapat pada [Yahoo finance Saham BCA](https://finance.y
 
   ![Close](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/e7784995-8ad6-495d-8d38-f2922f20ab2a)
   Gambar 5. Distribusi _Moving Average_ dan _Close Price_
+
+### Hasil Analisa
+
+#### Analisa tren
+
+Tren dalam pasar saham terbagi menjadi tiga macam, yaitu _bullish_, _bearish_, dan _sideways_. Tren _bullish_ menggambarkan tren pergerakan harga saham yang cenderung bergerak naik, menunjukkan optimisme investor dan kepercayaan dalam pertumbuhan perusahaan. Sementara itu, tren _bearish_ menggambarkan pergerakan harga saham yang cenderung bergerak turun, mencerminkan ketidakpastian pasar dan kekhawatiran akan performa perusahaan. Di sisi lain, saham yang berada dalam kondisi _sideways_ cenderung stagnan atau bergerak mendatar, menandakan keseimbangan antara penawaran dan permintaan yang relatif stabil.
+
+Berdasarkan hasil analisa dari Gambar 4 dan Gambar 5, tren saham BCA dari 2004 sampai dengan 2024 cenderung bergerak naik dengan konsistensi yang kuat. Hal ini menandakan bahwa investor memiliki keyakinan yang tinggi terhadap potensi pertumbuhan BCA dalam jangka panjang, yang tercermin dalam kestabilan dan kenaikan nilai saham secara berkelanjutan. Sehingga, secara keseluruhan dalam jangka waktu yang panjang, jenis tren dalam pergerakan saham BCA adalah _bullish_, mencerminkan prospek yang positif bagi perusahaan tersebut.
+
+#### Analisa pola
+
+Berdasarkan hasil pengamatan pola dari Gambar 5 terdapat beberapa pola dalam tren harga saham tersebut.
+
+- Pola _Bullish Rectangle_
+
+Pola _bullish rectangle_ termasuk pola berkelanjutan ketika sedang terjadi _uptrend_ atau harga naik. Pola ini berupa pola yang menunjukkan pola konsolidasi sebelum tren naik berlanjut. Biasanya, pergerakan harga berada di range yang sempit dengan jarak garis _support_ dan _resistance_ yang sama jaraknya. _Open entry buy_ jika harga sudah break level resistance sebelumnya.
+
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/0e8944f8-26a4-4076-8cb3-647067bd412b)
+
+Gambar 6. Pola _Bullish Rectangle_
+
+- Pola _Ascending Triangle_
+
+Secara harfiah, _ascending_ sendiri memang berarti “naik”. Pola seperti ini biasanya terbentuk pada saat harga bergerak dalam kondisi kenaikan tren sehingga dapat diketahui adanya kemungkinan trend harga masih akan terus berlanjut.
+
+Pada grafik _ascending triangle_ ini, garis bagian atas yang terbentuk cenderung lebih mendatar daripada miring ke atas. Hal ini tentu sudah dipastikan karena _ascending triangle_ sendiri merupakan _continuation pattern_ yang biasanya akan muncul ketika terjadi _uptrend_.
+
+_Ascending_ ini terbentuk sebagai pola yang bergerak ke bagian atas membentuk segitiga atau pola _chart bullish_. Dengan demikian, pola chart ini mudah diidentifikasi sehingga dapat dipakai sebagai sinyal entri.
+
+![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/6ad931a9-ba65-4cff-90b0-369474057faf)
+
+Gambar 7. Pola _Ascending Triangle_
+
+Dengan adanya pola-pola dalam tren harga saham ini seperti pola _Ascending Triangle_ yang menandakan potensi penguatan harga saham dan Pola _Bullish Rectangle_ yang mencerminkan periode konsolidasi sebelum terjadinya penguatan harga, maka model _machine learning_ akan mengingat bentuk pola-pola yang terdapat dalam tren saham sebelumnya untuk memprediksi tren yang akan datang. Dengan demikian, model ini menggunakan data historis untuk mengidentifikasi dan memahami pola-pola yang muncul dalam pergerakan harga saham, membantu investor dalam membuat keputusan investasi yang lebih terinformasi dan akurat.
 
 ## Data Preparation
 
@@ -277,7 +308,7 @@ Berikut adalah hasil prediksi harga saham BCA 30 hari kedepan mulai dari tanggal
 
 ![image](https://github.com/maybeitsai/BCA-Stock-Forecasting/assets/130530985/823ca839-4dce-46ea-a523-22301e42f634)
 
-Gambar 6. Prediksi harga saham BCA 30 hari kedepan
+Gambar 8. Prediksi harga saham BCA 30 hari kedepan
 
 ### Kesimpulan
 #### Goals Achievement
@@ -290,7 +321,7 @@ Penggunaan model _LSTM_ yang diimplementasikan menggunakan TensorFlow dan KerasT
 Meskipun model pertama menunjukkan performa yang lebih baik dalam menangani kesalahan, ada potensi untuk melakukan perbaikan lebih lanjut atau penelitian lanjutan untuk meningkatkan kinerja model. Misalnya, eksplorasi lebih lanjut dalam pengaturan hiperparameter atau penerapan teknik lain dari _Deep Learning_ seperti penggunaan Transformer.
 
 #### Hasil Simulasi
-Berdasarkan analisa dari Gambar 6, dapat diperkirakan harga saham BCA 30 hari kedepan akan turun disekitar harga 9800. Simulasi prediksi harga saham BCA 30 hari ke depan menggunakan Model Pertama dapat memberikan pandangan yang lebih baik bagi investor untuk mengambil keputusan yang tepat. Namun, tetap perlu diingat bahwa prediksi harga saham memiliki tingkat ketidakpastian, dan hasilnya perlu diperhatikan bersama dengan faktor-faktor lain dalam pengambilan keputusan investasi.
+Berdasarkan analisa dari Gambar 8, dapat diperkirakan harga saham BCA 30 hari kedepan akan turun disekitar harga 9800. Simulasi prediksi harga saham BCA 30 hari ke depan menggunakan Model Pertama dapat memberikan pandangan yang lebih baik bagi investor untuk mengambil keputusan yang tepat. Namun, tetap perlu diingat bahwa prediksi harga saham memiliki tingkat ketidakpastian, dan hasilnya perlu diperhatikan bersama dengan faktor-faktor lain dalam pengambilan keputusan investasi.
 
 Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil mencapai tujuan yang telah ditetapkan dan memberikan solusi yang efektif dalam memprediksi harga saham BCA.
 
@@ -300,12 +331,10 @@ Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil 
 
 [2] Riyantoko, PA., Fahruddin, TM., Maulida, K. & Safitri, HE. 2020. Analisis Prediksi Harga Saham Sektor Perbankan Menggunakan Algoritma Long Short Term Memory, SEMNASIF.
 
-[3] S. F. Maghfiroh, D. D. P. Dewi, and M. N. Puspitasari, "Comparison of Time Series Analysis Method for Stock Price Prediction (Case Study: PT. Astra International Tbk)," J. SEMNASIF, vol. 3, no. 1, pp. 63–70, 2020.
+[3] H. N. Bhandari, B. Rimal, N. R. Pokhrel, R. Rimal, K. R. Dahal, and R. K. C. Khatri, “Predicting stock market index using LSTM,” Machine Learning with Applications, vol. 9, p. 100320, Sep. 2022, doi: 10.1016/J.MLWA.2022.100320.
 
-[4] H. N. Bhandari, B. Rimal, N. R. Pokhrel, R. Rimal, K. R. Dahal, and R. K. C. Khatri, “Predicting stock market index using LSTM,” Machine Learning with Applications, vol. 9, p. 100320, Sep. 2022, doi: 10.1016/J.MLWA.2022.100320.
+[4] Surya, R., & Yusuf, I. (2018). Prediksi Harga Saham Menggunakan Metode Long Short-Term Memory (LSTM) Neural Network. Jurnal Ilmiah Teknologi Informasi, 4(2), 123-130.
 
-[5] Surya, R., & Yusuf, I. (2018). Prediksi Harga Saham Menggunakan Metode Long Short-Term Memory (LSTM) Neural Network. Jurnal Ilmiah Teknologi Informasi, 4(2), 123-130.
+[5] T. Gao, Y. Chai, and Y. Liu, “Applying long short term momory neural networks for predicting stock closing price,” Proceedings of the IEEE International Conference on Software Engineering and Service Sciences, ICSESS, vol. 2017-November, pp. 575–578, Apr. 2018, doi: 10.1109/ICSESS.2017.8342981.
 
-[6] T. Gao, Y. Chai, and Y. Liu, “Applying long short term momory neural networks for predicting stock closing price,” Proceedings of the IEEE International Conference on Software Engineering and Service Sciences, ICSESS, vol. 2017-November, pp. 575–578, Apr. 2018, doi: 10.1109/ICSESS.2017.8342981.
-
-[7] Wiranda, L. & Sadikin, M. (2019). Penerapan Long Short Term Memory Pada Data Time Series Untuk Memprediksi Penjualan Produk PT. Metiska Farma, Janapato Vol. 8, No. 3.
+[6] Wiranda, L. & Sadikin, M. (2019). Penerapan Long Short Term Memory Pada Data Time Series Untuk Memprediksi Penjualan Produk PT. Metiska Farma, Janapato Vol. 8, No. 3.
