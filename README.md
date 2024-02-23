@@ -280,10 +280,10 @@ Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil 
 
 [1] Brownlee, J. (2019). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
 
-[2] TensorFlow Documentation. (2022). TensorFlow. Diakses dari https://www.tensorflow.org/api_docs
+[2] TensorFlow Documentation. (2022). TensorFlow. https://www.tensorflow.org/api_docs
 
-[3] PyTorch Documentation. (2022). PyTorch. Diakses dari https://pytorch.org/docs/stable/index.html
+[3] PyTorch Documentation. (2022). PyTorch. https://pytorch.org/docs/stable/index.html
 
-[4] Optuna Documentation. (2022). Optuna. Diakses dari https://optuna.org/
+[4] Optuna Documentation. (2022). Optuna. https://optuna.org/
 
-[5] KerasTuner Documentation. (2022). KerasTuner. Diakses dari https://keras.io/api/keras_tuner/
+[5] KerasTuner Documentation. (2022). KerasTuner. https://keras.io/api/keras_tuner/
