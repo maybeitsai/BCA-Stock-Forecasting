@@ -276,7 +276,7 @@ Berdasarkan analisa dari Gambar 6, dapat diperkirakan harga saham BCA 30 hari ke
 
 Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil mencapai tujuan yang telah ditetapkan dan memberikan solusi yang efektif dalam memprediksi harga saham BCA.
 
-## Referensi
+## References
 
 [1] Brownlee, J. (2019). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
 
