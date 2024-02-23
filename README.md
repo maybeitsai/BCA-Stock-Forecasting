@@ -277,24 +277,13 @@ Berdasarkan analisa dari Gambar 6, dapat diperkirakan harga saham BCA 30 hari ke
 Dengan demikian, dapat disimpulkan bahwa proyek _Machine Learning_ ini berhasil mencapai tujuan yang telah ditetapkan dan memberikan solusi yang efektif dalam memprediksi harga saham BCA.
 
 ## Referensi
-[1] Abadi, M., Barham, P., Chen, J., Chen, Z., Davis, A., Dean, J., Devin, M., Ghemawat, S., Irving, G., Isard, M., & Kudlur, M. (2016). TensorFlow: A System for Large-Scale Machine Learning. In 12th USENIX Symposium on Operating Systems Design and Implementation (OSDI 16) (pp. 265-283).
 
-[2] Bergstra, J., Yamins, D., & Cox, D. D. (2013). Making a Science of Model Search: Hyperparameter Optimization in Hundreds of Dimensions for Vision Architectures. In International Conference on Machine Learning (pp. 115-123).
+[1] Brownlee, J. (2019). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
 
-[3] Brownlee, J. (2020). Deep Learning for Time Series Forecasting. Machine Learning Mastery.
+[2] TensorFlow Documentation. (2022). TensorFlow. Diakses dari https://www.tensorflow.org/api_docs
 
-[4] Choi, K., & Bengio, Y. (2014). On the Properties of Neural Machine Translation: Encoder-Decoder Approaches. In Eighth Workshop on Syntax, Semantics and Structure in Statistical Translation (pp. 103-111).
+[3] PyTorch Documentation. (2022). PyTorch. Diakses dari https://pytorch.org/docs/stable/index.html
 
-[5] Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga, L., Desmaison, A., Kopf, A., Yang, E., DeVito, Z., Raison, M., Tejani, A., Chilamkurthy, S., Steiner, B., Fang, L., Bai, J., & Chintala, S. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. In Wallach, H., Larochelle, H., Beygelzimer, A., d'Alché-Buc, F., Fox, E., & Garnett, R. (Eds.), Advances in Neural Information Processing Systems 32 (pp. 8024-8035).
+[4] Optuna Documentation. (2022). Optuna. Diakses dari https://optuna.org/
 
-[6] Sutskever, I., Vinyals, O., & Le, Q. V. (2014). Sequence to Sequence Learning with Neural Networks. In Advances in Neural Information Processing Systems 27 (pp. 3104-3112).
-
-[7] TensorFlow Documentation. (2022). TensorFlow. Retrieved from https://www.tensorflow.org/api_docs
-
-[8] PyTorch Documentation. (2022). Diakses dari https://pytorch.org/docs/stable/index.html
-
-[8] Optuna Documentation. (2022). Optuna. Retrieved from https://optuna.org/
-
-[9] KerasTuner Documentation. (2022). KerasTuner. Retrieved from https://keras.io/api/keras_tuner/
-
-[10] Scikit-learn Documentation. (2022). Scikit-learn. Retrieved from https://scikit-learn.org/stable/documentation.html
+[5] KerasTuner Documentation. (2022). KerasTuner. Diakses dari https://keras.io/api/keras_tuner/
